@@ -1730,7 +1730,14 @@ static int8_t parse_fifo(enum bhy2_fifo_type source, struct bhy2_fifo_buffer *fi
                     info.callback(&data_info, info.callback_ref);
                 }
 
-                fifo_p->read_pos += dev->event_size[tmp_sensor_id];
+                if (dev->event_size[tmp_sensor_id] == 0 )
+                {
+                    fifo_p->read_pos = fifo_p->read_length;
+                }
+                else
+                {
+                    fifo_p->read_pos += dev->event_size[tmp_sensor_id];
+                }
                 break;
         }
     }
